@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>7th Grade History Quiz</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      padding: 20px;
+    }
+    .quiz-container {
+      margin-top: 20px;
+    }
+    .quiz-question {
+      margin-bottom: 20px;
+    }
+    .quiz-options {
+      list-style-type: none;
+      padding: 0;
+    }
+    .quiz-options li {
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container quiz-container">
+    <h2 id="quizTitle">7th Grade History Quiz</h2>
+    <div id="quiz"></div>
+    <button class="btn btn-primary" onclick="submitQuiz()">Submit</button>
+    <div id="result"></div>
+  </div>
+  <!-- Bootstrap JavaScript and dependencies -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- Quiz JavaScript -->
+  <script>
+    const quizData = {
+      "quizTitle": "7th Grade History Quiz",
+      "questions": [
+        {
+          "question": "Who was the first President of the United States?",
+          "options": ["George Washington", "Thomas Jefferson", "Abraham Lincoln", "John Adams"],
+          "answer": "George Washington"
+        },
+        {
+          "question": "What ancient civilization built the pyramids?",
+          "options": ["Greeks", "Romans", "Egyptians", "Babylonians"],
+          "answer": "Egyptians"
+        },
+        {
+          "question": "Which event marked the beginning of the American Revolutionary War?",
+          "options": ["The Boston Tea Party", "The Battle of Lexington and Concord", "The signing of the Declaration of Independence", "The Battle of Yorktown"],
+          "answer": "The Battle of Lexington and Concord"
+        },
+        {
+          "question": "What document declared the American colonies' independence from Britain?",
+          "options": ["The Constitution", "The Bill of Rights", "The Magna Carta", "The Declaration of Independence"],
+          "answer": "The Declaration of Independence"
+        },
+        {
+          "question": "Who was known as the 'Father of the Constitution'?",
+          "options": ["George Washington", "James Madison", "Benjamin Franklin", "Thomas Jefferson"],
+          "answer": "James Madison"
+        },
+        {
+          "question": "Which empire was known for its road system and advanced engineering?",
+          "options": ["The Roman Empire", "The Persian Empire", "The Mongol Empire", "The Ottoman Empire"],
+          "answer": "The Roman Empire"
+        },
+        {
+          "question": "What was the main purpose of the Silk Road?",
+          "options": ["To connect Europe and Asia for trade", "To spread religion", "To invade other territories", "To establish colonies"],
+          "answer": "To connect Europe and Asia for trade"
+        },
+        {
+          "question": "Who was the famous queen of ancient Egypt known for her intelligence and political acumen?",
+          "options": ["Cleopatra", "Nefertiti", "Hatshepsut", "Sobekneferu"],
+          "answer": "Cleopatra"
+        },
+        {
+          "question": "What was the major effect of the Black Death on Europe?",
+          "options": ["Increased trade", "Population growth", "Significant population decline", "Industrial revolution"],
+          "answer": "Significant population decline"
+        },
+        {
+          "question": "What was the name of the ship that brought the Pilgrims to America in 1620?",
+          "options": ["The Mayflower", "The Santa Maria", "The Nina", "The Pinta"],
+          "answer": "The Mayflower"
+        }
+      ]
+    };
+
+    const quizContainer = document.getElementById('quiz');
+    const resultContainer = document.getElementById('result');
+
+    function loadQuiz() {
+      document.getElementById('quizTitle').innerText = quizData.quizTitle;
+      quizData.questions.forEach((q, index) => {
+        const questionElement = document.createElement('div');
+        questionElement.classList.add('quiz-question');
+        questionElement.innerHTML = `
+          <h5>${index + 1}. ${q.question}</h5>
+          <ul class="quiz-options">
+            ${q.options.map(option => `<li><input type="radio" name="question${index}" value="${option}"> ${option}</li>`).join('')}
+          </ul>
+        `;
+        quizContainer.appendChild(questionElement);
+      });
+    }
+
+    function submitQuiz() {
+      let score = 0;
+      quizData.questions.forEach((q, index) => {
+        const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+        if (selectedOption && selectedOption.value === q.answer) {
+          score++;
+        }
+      });
+      resultContainer.innerHTML = `<h3>Your score: ${score}/${quizData.questions.length}</h3>`;
+    }
+
+    loadQuiz();
+  </script>
+</body>
+</html>
